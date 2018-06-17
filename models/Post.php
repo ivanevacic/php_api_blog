@@ -84,7 +84,8 @@
         }
 
         //  Create post
-        public function create_post() {
+        public function create_post()
+        {
             //  Create query
             $query = 'INSERT INTO ' . $this->table . '
                 SET
@@ -108,17 +109,18 @@
             $stmt->bindParam(':category_id', $this->category_id);
 
             //  Execute query
-                //  If statement is successfully executed
-                    if($stmt->execute()) {
-                        return true;
-                    }
-                    //  If there was an error during statement execute
-                        printf("Error: %s.\n", $stmt->error);
-                        return false;
+            //  If statement is successfully executed
+            if ($stmt->execute()) {
+                return true;
+            }
+            //  If there was an error during statement execute
+            printf("Error: %s.\n", $stmt->error);
+            return false;
         }
 
         //  Update post
-        public function update_post() {
+        public function update_post()
+        {
             //  Create query
             $query = 'UPDATE ' . $this->table . '
                 SET
@@ -146,12 +148,33 @@
             $stmt->bindParam(':id', $this->id);
 
             //  Execute query
-                //  If statement is successfully executed
-                    if($stmt->execute()) {
-                        return true;
-                    }
-                    //  If there was an error during statement execute
-                        printf("Error: %s.\n", $stmt->error);
-                        return false;
+            //  If statement is successfully executed
+            if ($stmt->execute()) {
+                return true;
+            }
+            //  If there was an error during statement execute
+            printf("Error: %s.\n", $stmt->error);
+            return false;
+        }
+
+        //  Delete post
+        public function delete_post()
+        {
+            //  Create query
+            $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+            //  Prepare statement
+            $stmt = $this->connection->prepare($query);
+            //  Clean up data
+            $this->id = htmlspecialchars(strip_tags($this->id));
+            //  Bind data
+            $stmt->bindParam(':id', $this->id);
+            //  Execute query
+            //  If statement is successfully executed
+            if ($stmt->execute()) {
+                return true;
+            }
+            //  If there was an error during statement execute
+            printf("Error: %s.\n", $stmt->error);
+            return false;
         }
     }
