@@ -1,6 +1,7 @@
 <?php
 
-    class Post {
+    class Post
+    {
         private $connection;
         private $table = 'posts';
 
@@ -13,12 +14,14 @@
         public $created_at;
 
         //  Constructor
-        public function __construct($db) {
+        public function __construct($db)
+        {
             $this->connection = $db;
         }
 
         //  Get post
-        public function read() {
+        public function read()
+        {
             //  Create query
             $query = 'SELECT 
                 c.name as category_name,
@@ -36,12 +39,11 @@
                 p.created_at DESC';
 
         
-        //  Prepare statement
+            //  Prepare statement
             $stmt = $this->connection->prepare($query);
             //  Execute statement
             $stmt->execute();
             //  Return statement
             return $stmt;
-
         }
-}
+    }
